@@ -17,17 +17,15 @@
     <link href="css/pages/login-register-lock.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
 
     <!-- You can change the theme colors from here -->
-
+    <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-
 </head>
 
 <body class="card-no-border">
@@ -47,28 +45,23 @@
         <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
             <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" id="loginform">
-                        <h3 class="box-title m-b-20">Ingresar al Chat</h3>
-                        <div class="error">
-                            <h4 class="err"></h4>
-                        </div>
+                    <form class="form-horizontal form-material" id="registerform" method="POST">
+                        <h3 class="box-title m-b-20">Registrar Usuario</h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
-                                <input class="form-control" type="text" required="" placeholder="Nombre de usuario" id="email" name="email">
-                            </div>
+                                <input class="form-control" autocomplete="off" type="text" required="" placeholder="Nombre de usuario" name="nombre"> </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input class="form-control" autocomplete="off" type="text" required="" placeholder="Contraseña" id="password" name="password">
-                            </div>
+                                <input class="form-control" autocomplete="off" type="email" required="" placeholder="Ingrese el email" name="email"> </div>
                         </div>
-                        <label><input type="checkbox" id="check-sesion" value="true"> Mantener sesion iniciada</label>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input class="form-control" autocomplete="off" type="text" required="" placeholder="Ingrese el password" name="password"> </div>
+                        </div>
                         <div class="form-group text-center">
                             <div class="col-xs-12 p-b-20">
-                                <button class="btn btn-block btn-lg btn-info btn-rounded formulario" type="submit">Ingresar al chat</button>
-                            </div>
-                            <div>
-                                <a class="btn register btn-rounded" href="register.html">Registrar</a>
+                                <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">Registrar</button>
                             </div>
                         </div>
                     </form>
@@ -84,13 +77,11 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="socket.io/socket.io.js"></script>
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!--Custom JavaScript -->
-    <script src="js/socket-login-view.js"></script>
 
     <script type="text/javascript">
         $(function() {

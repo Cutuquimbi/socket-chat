@@ -1,23 +1,28 @@
-var params = new URLSearchParams(window.location.search);
-
-var nombre = params.get('nombre');
-var sala = params.get('sala');
-
 //referencias de jQuery
-var divUsuarios = $('#divUsuarios');
+var divChats = $('#divSalas');
 var formEnviar = $('#formEnviar');
 var txtMensaje = $('#txtMensaje');
 var divChatbox = $('#divChatbox');
+var cerrarSesion = $('#cerrar-sesion');
+
+//Panel Izquierdo
+var agregarGrupo = $('#agregar-grupo');
+var btnCrearGrupo = $('#btn-crear-grupo');
+var txtGrupo = $('#txtGrupo');
+var swipe = $('.chat-rbox');
+
+
+//popup
+var overlay = $('#overlay');
+var popup = $('#popup');
+var crearGrupo = $('#crear-grupo');
+var btnCerrar = $('#btn-cerrar');
 
 var footer = $('footer');
 var btnpanel = $('#btn-panel');
 var panel = $('#panel1');
-var conNombre = 0;
-var conAdmin = false;
 
-
-
-//Funciones para renderizar usuarios
+//Funciones para renderizar usuarios y salas
 function renderizarUsuarios(personas) {
 
     var html = '';
@@ -30,7 +35,7 @@ function renderizarUsuarios(personas) {
 
 
         html += '<li>';
-        html += '    <a data-id="' + personas[i].id + '" href="javascript:void(0)"><img src="assets/images/users/1.jpg" alt="user-img" class="img-circle"> <span>' + personas[i].nombre + ' <small class="text-success">online</small></span></a>';
+        html += '    <a data-id="' + personas[i].id + '" href="javascript:void(0)"><span>' + personas[i].nombre + ' <small class="text-success">online</small></span></a>';
         html += '</li>';
     }
 
@@ -38,7 +43,22 @@ function renderizarUsuarios(personas) {
 
 }
 
+function renderizarSalas(salas) {
 
+    var html = '';
+
+    for (var i = 0; i < salas.length; i++) {
+
+
+        html += '<li>';
+        html += '    <a data-id="' + salas[i]._id + '" href="Grupo">' + salas[i].nombre + '</a>';
+        html += '</li>';
+    }
+
+    divChats.html(html);
+}
+
+//Mensajes
 function renderizarMensajes(mensaje, yo) {
 
     var html = '';
@@ -74,7 +94,7 @@ function renderizarMensajes(mensaje, yo) {
 
         var lista = $('.id-usuario');
 
-        html += '<li class="animated fadeIn">';
+        html += '<li class="fadeIn">';
         html += '<div class="chat-content">';
 
         if (lista.length === 0 || !lista.last().hasClass(mensaje.nombre)) {
@@ -111,27 +131,73 @@ function scrollBottom() {
     }
 }
 
-btnpanel.on('click', function() {
-
-    if (panel.hasClass('open-pnl')) {
-        panel.removeClass('open-pnl');
-    } else {
-        panel.addClass('open-pnl');
-    }
-
-});
-
-
 //Listener
-divUsuarios.on('click', 'a', function() {
+cerrarSesion.on('click', function() {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('nombre');
+    window.location.assign('/');
+
+})
+
+divChats.on('click', 'a', function() {
 
     var id = $(this).data('id');
 
     if (id) {
-        console.log(id);
+        myHeaders.append('chat', id);
     }
+    socket.emit('join', myHeaders.get('chat'));
 });
 
+swipe.on('swiperight', function() {
+
+    panel.toggleClass('open-pnl');
+});
+
+btnpanel.on('click', function() {
+
+    panel.toggleClass('open-pnl');
+});
+
+agregarGrupo.on('submit', function(e) {
+    e.preventDefault();
+
+    if (txtGrupo.val().trim().length === 0) {
+        return;
+    }
+
+    socket.emit('agregarGrupo', {
+        grupo: txtGrupo.val(),
+        token: myHeaders.get('token') || localStorage.getItem('token')
+    }, function(resp) {
+
+        renderizarSalas(resp.grupos);
+    })
+});
+
+btnCrearGrupo.on('click', function() {
+
+    overlay.addClass('active');
+    popup.addClass('active');
+});
+//popup
+btnCerrar.on('click', function() {
+
+    overlay.removeClass('active');
+    popup.removeClass('active');
+});
+
+crearGrupo.on('submit', function(e) {
+
+    e.preventDefault();
+    let id = myHeaders.get('id') || localStorage.getItem('id');
+    socket.emit('crearGrupo', { grupo: grupo.value, id: id }, function(resp) {
+        console.log(resp);
+    })
+})
+
+//mensajes
 formEnviar.on('submit', function(e) {
 
     e.preventDefault();
@@ -140,8 +206,11 @@ formEnviar.on('submit', function(e) {
         return;
     }
 
+    console.log(myHeaders.get('chat'));
+
     socket.emit('crearMensaje', {
-        nombre: nombre,
+        dest: myHeaders.get('chat'),
+        nombre: myHeaders.get('nombre') || localStorage.getItem('nombre'),
         mensaje: txtMensaje.val()
     }, function(mensaje) {
         txtMensaje.val('').focus();

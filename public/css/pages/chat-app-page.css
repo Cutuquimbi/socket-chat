@@ -95,17 +95,18 @@ chat application Page
 
 .chat-main-box .chat-left-aside .chat-left-inner .style-none li a:hover,
 .chat-main-box .chat-left-aside .chat-left-inner .style-none li a:active {
-    background: #ebf3f5;
+    background: #555555;
 }
 
 .chat-main-box .chat-right-aside {
     width: calc(100% - 250px);
     float: left;
+    display: flex;
+    flex-direction: column;
 }
 
 .chat-main-box .chat-right-aside .chat-rbox {
     position: relative;
-    max-height: 800px;
 }
 
 .chat-main-box .chat-right-aside .chat-list .chat-text {

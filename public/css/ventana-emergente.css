@@ -1,0 +1,77 @@
+.overlay {
+    background: rgba(0, 0, 0, .2);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: .3 ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    scale: 0.7;
+}
+
+.overlay.active {
+    visibility: visible;
+}
+
+.popup {
+    width: 50%;
+    background: #f8f8f8;
+    border-radius: 1rem;
+    text-align: center;
+    color: #000;
+    transform: scale(0.7);
+    transition: .3 ease all;
+    opacity: 0;
+}
+
+.popup .btn-cerrar {
+    padding: 0 .3rem;
+    transition: .3 ease all;
+}
+
+.popup h2 {
+    color: #000;
+    font-weight: 500;
+}
+
+.popup .form-grupo {
+    padding: 0.4rem;
+}
+
+.btn-cerrar {
+    cursor: pointer;
+    color: #007bff;
+    border: none;
+    background: none;
+}
+
+.btn-cerrar:focus {
+    outline: none;
+}
+
+.btn-grupo {
+    padding: .1rem 1rem;
+}
+
+.grupo {
+    color: #000;
+    text-align: center;
+}
+
+.grupo:focus {
+    color: #000;
+}
+
+.grupo::placeholder {
+    color: #000;
+    opacity: .5;
+}
+
+.popup.active {
+    transform: scale(0.7);
+    opacity: 1;
+}

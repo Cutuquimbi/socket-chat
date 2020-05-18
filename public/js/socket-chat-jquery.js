@@ -55,15 +55,14 @@ function renderizarMensajes(mensaje, yo) {
 
     if (yo) {
 
-        var lista = $('id-usuario');
-
+        var lista = $('.id-usuario');
 
         html += '<li class="reverse">';
         html += '<div class="chat-content">';
         // lista[lista.length].has('h5').text() === 'Jony'
-        if (lista.length === 0 || lista != mensaje.nombre) {
+        if (lista.length === 0 || !lista.last().hasClass(mensaje.nombre)) {
             html += '<h5 class="id-usuario ' + mensaje.nombre + '">' + mensaje.nombre + '</h5>';
-            console.log(lista.last());
+
         }
 
         html += '<div class="bg bg-light-inverse">' + mensaje.mensaje + '</div>';
@@ -73,11 +72,13 @@ function renderizarMensajes(mensaje, yo) {
 
     } else {
 
+        var lista = $('.id-usuario');
+
         html += '<li class="animated fadeIn">';
         html += '<div class="chat-content">';
 
-        if (lista.length === 0 || lista.last() === nensaje.nombre) {
-            html += '<h5>' + mensaje.nombre + '</h5>';
+        if (lista.length === 0 || !lista.last().hasClass(mensaje.nombre)) {
+            html += '<h5 class="id-usuario ' + mensaje.nombre + '">' + mensaje.nombre + '</h5>';
 
         }
 
@@ -85,8 +86,6 @@ function renderizarMensajes(mensaje, yo) {
         html += '</div>';
         html += '<div class="chat-time">' + hora + '</div>';
         html += '</li>';
-        if (mensaje.nombre === 'Admin') { conNombre = 0; }
-
 
 
     }

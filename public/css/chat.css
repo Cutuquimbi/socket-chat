@@ -1,9 +1,84 @@
-.chat-list {
+html,
+body,
+#main-wrapper,
+.page-wrapper,
+.container-fluid,
+.row.animated.fadeIn,
+.card1,
+.card.m-b-0,
+.chat-right-aside {
+    height: 100%;
+    max-height: 100%;
+}
+
+.card.m-b-0 {
+    border-radius: 10px;
+}
+
+.container-fluid {
+    padding: 0.5%;
+}
+
+.chat-rbox {
+    height: 85%;
+}
+
+.card-body.b-t {
+    height: 15%;
+    padding: 0.7rem;
+}
+
+.c-t-e {
+    height: 100%;
+}
+
+.caja-texto,
+.boton-enviar {
+    height: 100%;
+}
+
+.btn.btn-info.btn-circle.btn-lg {
+    height: 100%;
+    padding: 7.5% 7.5%;
+}
+
+.boton-enviar .btn .ico {}
+
+.chat-main-header {
+    height: 15%;
+}
+
+.chat-main-header>.p-20.b-b {
+    height: 100%;
+    padding: 3% 4%;
+}
+
+.chat-main-box {
+    height: 100%;
+    width: auto;
+}
+
+.chat-main-box .chat-right-aside .chat-list {
+    padding-top: 40px;
+    padding-bottom: 2%;
     overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    height: 600px !important;
+    max-height: 100%;
+}
+
+.bg {
+    display: inline-block;
+    color: #263238;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 2px;
+    min-width: 30px;
+    max-width: 60%;
 }
 
 textarea {
     width: 100%;
+}
+
+.chat-main-box .chat-left-aside {
+    height: 100%;
 }

@@ -9,6 +9,12 @@ var formEnviar = $('#formEnviar');
 var txtMensaje = $('#txtMensaje');
 var divChatbox = $('#divChatbox');
 
+var footer = $('footer');
+var btnpanel = $('#btn-panel');
+var panel = $('#panel1');
+var conNombre = 0;
+var conAdmin = false;
+
 
 
 //Funciones para renderizar usuarios
@@ -42,29 +48,47 @@ function renderizarMensajes(mensaje, yo) {
     var adminClass = 'info';
     if (mensaje.nombre === 'Admin') {
         adminClass = 'danger'
+        conNombre = null;
+
     }
 
 
     if (yo) {
+
+        var lista = $('id-usuario');
+
+
         html += '<li class="reverse">';
         html += '<div class="chat-content">';
-        html += '<h5>' + mensaje.nombre + '</h5>';
-        html += '<div class="box bg-light-inverse">' + mensaje.mensaje + '</div>';
-        html += '</div>';
-        html += '<div class="chat-img"><img src="assets/images/users/5.jpg" alt="user" /></div>';
-        html += '<div class="chat-time">' + hora + '</div>';
-        html += '</li>';
-    } else {
-        html += '<li class="animated fadeIn">';
-        if (mensaje.nombre !== 'Admin') {
-            html += '<div class="chat-img"><img src="assets/images/users/1.jpg" alt="user" /></div>';
+        // lista[lista.length].has('h5').text() === 'Jony'
+        if (lista.length === 0 || lista != mensaje.nombre) {
+            html += '<h5 class="id-usuario ' + mensaje.nombre + '">' + mensaje.nombre + '</h5>';
+            console.log(lista.last());
         }
-        html += '<div class="chat-content">';
-        html += '<h5>' + mensaje.nombre + '</h5>';
-        html += '<div class="box bg-light-' + adminClass + '">' + mensaje.mensaje + '</div>';
+
+        html += '<div class="bg bg-light-inverse">' + mensaje.mensaje + '</div>';
         html += '</div>';
         html += '<div class="chat-time">' + hora + '</div>';
         html += '</li>';
+
+    } else {
+
+        html += '<li class="animated fadeIn">';
+        html += '<div class="chat-content">';
+
+        if (lista.length === 0 || lista.last() === nensaje.nombre) {
+            html += '<h5>' + mensaje.nombre + '</h5>';
+
+        }
+
+        html += '<div class="bg bg-light-' + adminClass + '">' + mensaje.mensaje + '</div>';
+        html += '</div>';
+        html += '<div class="chat-time">' + hora + '</div>';
+        html += '</li>';
+        if (mensaje.nombre === 'Admin') { conNombre = 0; }
+
+
+
     }
 
     divChatbox.append(html);
@@ -88,6 +112,15 @@ function scrollBottom() {
     }
 }
 
+btnpanel.on('click', function() {
+
+    if (panel.hasClass('open-pnl')) {
+        panel.removeClass('open-pnl');
+    } else {
+        panel.addClass('open-pnl');
+    }
+
+});
 
 
 //Listener
@@ -116,4 +149,4 @@ formEnviar.on('submit', function(e) {
         renderizarMensajes(mensaje, true);
         scrollBottom();
     });
-})
+});
